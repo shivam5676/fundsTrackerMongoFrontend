@@ -3,7 +3,7 @@ const DeleteExpense = (props) => {
   const deleteItemHandler = (id) => {
     console.log(id);
     axios
-      .post("http://localhost:8000/user/deleteexpense",{id:id})
+      .post("http://localhost:8000/user/deleteexpense",{id:id},{headers:{"Authorization":localStorage.getItem("token")}})
       .then((response) => {
         console.log(response);
       })

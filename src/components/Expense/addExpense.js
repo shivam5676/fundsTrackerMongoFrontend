@@ -13,7 +13,7 @@ const AddExpense = () => {
       description: descriptionRef.current.value,
     };
     axios
-      .post("http://localhost:8000/user/addexpense", myobj)
+      .post("http://localhost:8000/user/addexpense",myobj,{headers:{"Authorization":localStorage.getItem("token")}} )
       .then((response) => {
         console.log(response);
       })

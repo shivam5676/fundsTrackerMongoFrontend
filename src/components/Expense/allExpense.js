@@ -6,7 +6,7 @@ const AllExpense = () => {
   const [allData, setAllData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/user/getexpense")
+      .get("http://localhost:8000/user/getexpense",{headers:{"Authorization":localStorage.getItem("token")}})
       .then((response) => {
         console.log(response.data);
        const dataArray= response.data.map((current)=>{
