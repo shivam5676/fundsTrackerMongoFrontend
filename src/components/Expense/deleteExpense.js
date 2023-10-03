@@ -1,5 +1,9 @@
+
 import axios from "axios";
 import React from "react";
+
+import axios from "axios"
+
 const DeleteExpense = (props) => {
   const deleteItemHandler = (id) => {
     console.log(id);
@@ -18,8 +22,12 @@ const DeleteExpense = (props) => {
         deleteItemHandler(props.deleteId);
       }}
     >
+
       Delete 
     </button>
   );
 };
 export default DeleteExpense
+
+    
+

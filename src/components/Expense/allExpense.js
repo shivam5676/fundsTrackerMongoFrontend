@@ -1,7 +1,13 @@
+
 import axios from "axios";
 import React ,{ useEffect, useState } from "react";
 import MembershipActivate from "../membership/activateMembershipbtn"
 import DeleteExpense from "../Expense/deleteExpense"
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import DeleteExpense from "./deleteExpense";
+
 
 const AllExpense = () => {
   const [allData, setAllData] = useState([]);
@@ -24,7 +30,11 @@ const AllExpense = () => {
     <div>
       {" "}
       fetched expenses
-      <MembershipActivate>Activate memberShip</MembershipActivate>
+
+      <MembershipActivate> 
+        Activate memberShip</MembershipActivate>
+
+
       <h3>{allData}</h3>
     </div>
   );
