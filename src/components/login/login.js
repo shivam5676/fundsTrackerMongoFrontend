@@ -23,8 +23,9 @@ const Login = () => {
     axios
       .post("http://localhost:8000/user/login", myobj)
       .then((response) => {
-        console.log(response.data.token);
+        console.log(response.data);
         localStorage.setItem("token",response.data.token)
+        localStorage.setItem("isPremium",response.data.premium)
       })
       .catch((err) => {
         console.log(err);

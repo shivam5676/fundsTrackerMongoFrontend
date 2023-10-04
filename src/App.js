@@ -4,6 +4,7 @@ import './App.css';
 
 import AddExpense from './components/Expense/addExpense';
 import AllExpense from './components/Expense/allExpense';
+import LeaderBoard from './components/leaderboard/LeaderBoard';
 
 import Login from './components/login/login';
 import SignUp from './components/signup/signup';
@@ -21,7 +22,8 @@ function App() {
 
     
       <AllExpense></AllExpense>
-
+      <hr></hr>
+<LeaderBoard></LeaderBoard>
 
     </div>
   );
