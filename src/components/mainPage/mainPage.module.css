@@ -1,0 +1,23 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    height:100vh;
+   
+    justify-content:space-evenly ;
+    background-color: antiquewhite;
+}
+
+.parent{
+display:flex;
+width:100vw;
+
+
+
+}
+.doubleCard,.singleCard{
+    flex:1;
+    justify-items: space-between;
+    background-color: darkgoldenrod;
+    height:30vh;
+    margin:20px
+}

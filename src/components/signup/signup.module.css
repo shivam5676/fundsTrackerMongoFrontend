@@ -1,0 +1,130 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.signupMain {
+  height: 100vh;
+width:100vw;
+  background-image: url("../../../public/signup.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  width: 300px;
+
+  border-radius: 20px;
+  padding-bottom: 20px;
+}
+.circle {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  top: -25px;
+ 
+}
+.circle>div{
+  height:50px;
+  width:50px;
+  background-image: url(/public/signupIcon.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50px ;
+  background-color: antiquewhite;
+}
+.title {
+  display: flex;
+  height: 100px;
+
+  border-bottom: 2px solid rgb(175, 212, 9);
+  margin-bottom: 10px;
+}
+.titleText {
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+  font-size: large;
+}
+.titleText > p {
+  display: flex;
+  align-items: center;
+  background-color: yellowgreen;
+  height:40px;
+  font-weight: 900;
+}
+.image {
+  width: 150px;
+  background-image: url("/public/signuptitle.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.form {
+  display: flex;
+}
+.inputTab {
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+.inputTab > p {
+  margin-left: 25px;
+  color: black;
+  font-weight: bold;
+}
+.inputTab > div > input {
+  font-weight: 700;
+
+  width: 230px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  outline: none;
+  margin: 7px;
+}
+.inputTab > div > input:hover {
+  box-shadow: -0px 4px 3px -2px rgb(64, 160, 26);
+  border-bottom: none;
+}
+
+.signupbtn {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.signupbtn > button {
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: yellowgreen;
+  font-weight: bold;
+}
+.loginbtn > p {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  font-weight: 900;
+}
+.loginbtn > a {
+  display: flex;
+  justify-content: center;
+  color: rgb(113, 160, 18);
+  text-decoration: none;
+  font-weight: bold;
+}
+.loginbtn > a > button {
+  width: 100px;
+  height: 30px;
+  border-radius: 20px 0px 20px 0px;
+  background-color:yellowgreen;
+  font-weight: bold;
+}
+.icon {
+  color: yellowgreen;
+  font-weight: bold;
+  
+}

@@ -1,32 +1,30 @@
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import AddExpense from "./components/Expense/addExpense"
+import AllExpense from "./components/Expense/allExpense";
+import LeaderBoard from "./components/leaderboard/LeaderBoard";
 
-
-import './App.css';
-
-import AddExpense from './components/Expense/addExpense';
-import AllExpense from './components/Expense/allExpense';
-import LeaderBoard from './components/leaderboard/LeaderBoard';
-
-import Login from './components/login/login';
-import SignUp from './components/signup/signup';
-
+import Login from "./components/login/login";
+import SignUp from "./components/signup/signup";
+import MainPage from "./components/mainPage/mainPage";
+import ForgotPassword from "./components/password/forgotPassword";
 
 function App() {
   return (
-    <div className="App">
-      <Login></Login>
-      <hr></hr>
-      <SignUp></SignUp>
-      <hr></hr>
+    // <MainPage></MainPage>
+      // <Routes>
+      //   <Route path="/login" element={<Login></Login>}></Route>
+      //   <Route path="/signup" element={<SignUp></SignUp>}></Route>
+      // </Routes>
+     <div>
+      {/* <Login></Login>
       <AddExpense></AddExpense>
-      <hr></hr>
-
-    
       <AllExpense></AllExpense>
-      <hr></hr>
-<LeaderBoard></LeaderBoard>
-
-    </div>
-  );
+      <LeaderBoard></LeaderBoard> */}
+      <ForgotPassword></ForgotPassword>
+     </div>
+    
+  )
 }
 
 export default App;

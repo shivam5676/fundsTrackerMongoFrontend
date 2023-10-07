@@ -10,7 +10,7 @@ const AddExpense = () => {
   const expenseDataHandler = (event) => {
     event.preventDefault();
     const myobj = {
-      amount: amountRef.current.value,
+      amount: +amountRef.current.value,
       category: categoryRef.current.value,
       description: descriptionRef.current.value,
     };

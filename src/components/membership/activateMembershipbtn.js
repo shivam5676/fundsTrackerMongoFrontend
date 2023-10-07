@@ -6,7 +6,7 @@ const MembershipActivate = (props) => {
   const [isPremium,setIsPremium]=useState(localStorage.getItem("isPremium"))
   const membershipHandler = () => {
     axios
-      .get("http://localhost:8000/user/activateMembership", {
+      .get("http://localhost:8000/premiumuser/activateMembership", {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
@@ -17,7 +17,7 @@ const MembershipActivate = (props) => {
           handler: async function (response) {
             try {
               await axios.post(
-                "http://localhost:8000/user/updateMembership",
+                "http://localhost:8000/premiumuser/updateMembership",
                 {
                   order_id: options.order_id,
                   payment_id: response.razorpay_payment_id,

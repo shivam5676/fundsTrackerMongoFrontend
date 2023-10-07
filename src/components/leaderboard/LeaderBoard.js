@@ -6,7 +6,7 @@ const LeaderBoard = () => {
   const [item, setItem] = useState(false);
   const LeaderBoardHandler = () => {
     axios
-      .get("http://localhost:8000/user/leaderboard", {
+      .get("http://localhost:8000/premiumUser/leaderboard", {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
@@ -18,6 +18,8 @@ const LeaderBoard = () => {
               <div key={index}> 
                 <p>{current.totalExpense}</p>
                 <p>{current.userId}</p>
+                <p>{current.user}</p>
+                <hr></hr>
               </div>
             );
           }
