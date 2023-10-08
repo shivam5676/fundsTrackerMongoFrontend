@@ -8,6 +8,7 @@ import Login from "./components/login/login";
 import SignUp from "./components/signup/signup";
 import MainPage from "./components/mainPage/mainPage";
 import ForgotPassword from "./components/password/forgotPassword";
+import UpdatePassword from "./components/password/updatePassword";
 
 function App() {
   return (
@@ -17,11 +18,12 @@ function App() {
       //   <Route path="/signup" element={<SignUp></SignUp>}></Route>
       // </Routes>
      <div>
-      {/* <Login></Login>
+      <Login></Login>
       <AddExpense></AddExpense>
       <AllExpense></AllExpense>
-      <LeaderBoard></LeaderBoard> */}
-      <ForgotPassword></ForgotPassword>
+      <LeaderBoard></LeaderBoard>
+      {/* <ForgotPassword></ForgotPassword>
+      <UpdatePassword></UpdatePassword> */}
      </div>
     
   )

@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const forgotPasswordHandler = () => {
     const emailValue = emailref.current.value;
     axios
-      .post("http://localhost:8000/user//password/forgot", emailValue)
+      .post("http://localhost:8000/user//password/forgot", {email:emailValue})
       .then((res) => {
         console.log(res);
       })
