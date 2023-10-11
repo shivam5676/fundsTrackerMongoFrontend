@@ -9,6 +9,7 @@ import SignUp from "./components/signup/signup";
 import MainPage from "./components/mainPage/mainPage";
 import ForgotPassword from "./components/password/forgotPassword";
 import UpdatePassword from "./components/password/updatePassword";
+import DownloadExpense from "./components/downloadExpense/downloadExpense";
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
       <AddExpense></AddExpense>
       <AllExpense></AllExpense>
       <LeaderBoard></LeaderBoard>
-      {/* <ForgotPassword></ForgotPassword>
-      <UpdatePassword></UpdatePassword> */}
+      {/* <DownloadExpense></DownloadExpense> */}
+      <ForgotPassword></ForgotPassword>
+      <UpdatePassword></UpdatePassword>
      </div>
     
   )
