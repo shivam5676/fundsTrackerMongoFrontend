@@ -1,0 +1,31 @@
+
+.sideContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: aquamarine;
+  padding-top: 5px;
+  width: 60px;
+  transition: width 0.3s;
+  /* margin: 5px; */
+  height:99%;
+}
+.sideColumn {
+  display: flex;
+
+  background-color: chocolate;
+
+  width: 40px;
+  margin: 10px;
+
+  transition: width 0.3s; /* Add a smooth transition effect */
+  white-space: nowrap;
+  overflow: hidden;
+  height: 50px;
+
+}
+.sideContainer:hover .sideColumn {
+  width: 130px;
+}
+.sideContainer:hover {
+  width: 150px;
+}

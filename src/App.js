@@ -1,34 +1,30 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-import AddExpense from "./components/Expense/addExpense"
-import AllExpense from "./components/Expense/allExpense";
-import LeaderBoard from "./components/leaderboard/LeaderBoard";
+import React from "react";
+import { Fragment, useState } from "react";
 
 import Login from "./components/login/login";
+
 import SignUp from "./components/signup/signup";
-import MainPage from "./components/mainPage/mainPage";
-import ForgotPassword from "./components/password/forgotPassword";
-import UpdatePassword from "./components/password/updatePassword";
-import DownloadExpense from "./components/downloadExpense/downloadExpense";
+import Home from "./home/Home";
 
 function App() {
+  const navigate = useNavigate();
+  const [isLogged, setIsLogged] = useState(
+    localStorage.getItem("isLogged") == "true" ? true : false
+  );
+  console.log(isLogged);
   return (
-    // <MainPage></MainPage>
-      // <Routes>
-      //   <Route path="/login" element={<Login></Login>}></Route>
-      //   <Route path="/signup" element={<SignUp></SignUp>}></Route>
-      // </Routes>
-     <div>
-      <Login></Login>
-      <AddExpense></AddExpense>
-      <AllExpense></AllExpense>
-      <LeaderBoard></LeaderBoard>
-      {/* <DownloadExpense></DownloadExpense> */}
-      <ForgotPassword></ForgotPassword>
-      <UpdatePassword></UpdatePassword>
-     </div>
-    
-  )
+    <Fragment>
+      <Routes>
+        
+        {/* {isLogged&&</Route>} */}
+        {!isLogged && <Route path="/login" element={<Login />} />}
+        {!isLogged && <Route path="/signup" element={<SignUp />} />}
+        <Route path="/" element={<Home></Home>}></Route>
+      </Routes>
+    </Fragment>
+  );
 }
 
 export default App;

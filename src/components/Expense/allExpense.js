@@ -3,8 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import MembershipActivate from "../membership/activateMembershipbtn";
 import DeleteExpense from "../Expense/deleteExpense";
 import { redirect } from "react-router-dom";
+import allcss from "./allExpense.module.css";
+import { AiFillCloseCircle } from "react-icons/ai";
 
-const AllExpense = () => {
+const AllExpense = (props) => {
   const userDate = new Date();
   const [filterDate, setFilterDate] = useState("Default");
   const [allData, setAllData] = useState([]);
@@ -12,10 +14,12 @@ const AllExpense = () => {
   const [prevPage, setPrevPage] = useState(false);
   const [nextPage, setNextPage] = useState(false);
   const [itemPerPage, setItemPerPage] = useState(10);
+  const [optionChange, setOptionChange] = useState("All Time");
 
-  const userDateHandler = (event) => {
-    console.log(event.target.value);
-    const selectedTime = event.target.value;
+  const userDateHandler = (data) => {
+    setOptionChange(data);
+
+    const selectedTime = data;
 
     if (selectedTime == "Today") {
       setFilterDate(
@@ -35,7 +39,7 @@ const AllExpense = () => {
       setFilterDate("Default");
     }
   };
-  console.log(filterDate);
+
   useEffect(() => {
     const items = localStorage.getItem("item");
     axios
@@ -52,20 +56,26 @@ const AllExpense = () => {
         const dataArray = response.data.result.map((currentIndex) => {
           const currentIndexDate = new Date(
             currentIndex.updatedAt
-          ).toLocaleString();
+          ).toLocaleString("en-GB", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
           console.log(currentIndexDate);
           if (
             currentIndexDate.includes(filterDate) ||
             filterDate === "Default"
           ) {
             return (
-              <div key={currentIndex.id}>
-                <h3>{currentIndex.amount}</h3>
-                <h2>{currentIndex.description}</h2>
-                <h3>{currentIndex.category}</h3>
-                <h4>{currentIndexDate}</h4>
-                <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
-              </div>
+              <tr key={currentIndex.id} className={allcss.tablerow}>
+                <td className={allcss.tablerowDate}>{currentIndexDate}</td>
+                <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
+                <td className={allcss.tablerowCategory}>{currentIndex.category}</td>
+                <td className={allcss.tablerowDescription}> {currentIndex.description}</td>
+                <td>
+                  <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
+                </td>
+              </tr>
             );
           }
         });
@@ -86,19 +96,19 @@ const AllExpense = () => {
   };
   const defaultVAlue = localStorage.getItem("item");
 
+  const closeAllExpense = () => {
+    props.onCloseAllExpense();
+  };
   return (
-    <div>
-      {" "}
-      fetched expenses
-      <MembershipActivate></MembershipActivate>
-      <div>
-        <select onChange={userDateHandler}>
-          <option>All Time</option>
-          <option>Today</option>
-          <option>This month</option>
-          <option>This year</option>
-        </select>
-        <div>
+    <div className={allcss.model}>
+      <div className={allcss.container}>
+        <div className={allcss.close}>
+          <AiFillCloseCircle
+            className={allcss.closeicon}
+            onClick={closeAllExpense}
+          ></AiFillCloseCircle>
+        </div>
+        <div className={allcss.pageSelector}>
           <h4>select item per page</h4>
           <select onChange={dynamicPageHandler}>
             {defaultVAlue == 10 ? (
@@ -123,8 +133,54 @@ const AllExpense = () => {
             )}
           </select>
         </div>
+        <div className={allcss.slidingContainer}>
+          <div
+            className={`${allcss.option} ${
+              optionChange === "All Time" ? allcss.active : ""
+            }`}
+            onClick={() => userDateHandler("All Time")}
+          >
+            All Time
+          </div>
+          <div
+            className={`${allcss.option} ${
+              optionChange === "Today" ? allcss.active : ""
+            }`}
+            onClick={() => userDateHandler("Today")}
+          >
+            Today
+          </div>
+          <div
+            className={`${allcss.option} ${
+              optionChange === "This month" ? allcss.active : ""
+            }`}
+            onClick={() => userDateHandler("This month")}
+          >
+            This month
+          </div>
+          <div
+            className={`${allcss.option} ${
+              optionChange === "This year" ? allcss.active : ""
+            }`}
+            onClick={() => userDateHandler("This year")}
+          >
+            This year
+          </div>
+        </div>
 
-        <h3>{allData}</h3>
+        <table className={allcss.table}>
+          <thead className={allcss.tableHead}>
+            <tr className={allcss.tablerow}>
+              <th className={allcss.tablerowDate}>Date</th>
+              <th className={allcss.tablerowAmount}>amount</th>
+              <th className={allcss.tablerowCategory}>category</th>
+              <th className={allcss.tablerowDescription}>description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody className={allcss.tableBody}>{allData}</tbody>
+        </table>
+
         <div>
           {prevPage === true ? (
             <button

@@ -1,40 +1,71 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import leaderboardcss from "./leaderboard.module.css";
+import { AiFillCloseCircle } from "react-icons/ai";
 
-const LeaderBoard = () => {
+const LeaderBoard = (props) => {
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState(false);
-  const LeaderBoardHandler = () => {
+  const closeLeaderBoardHandler = () => {
+    props.onCloseLeaderBoard();
+  };
+
+  useEffect(() => {
     axios
       .get("http://localhost:8000/premiumUser/leaderboard", {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
         console.log(response.data.leaderboardData);
-        const updatedItem = Object.values(response.data.leaderboardData).map(
-          (current,index) => {
+        const sortedData = Object.values(response.data.leaderboardData).sort(
+          (a, b) => b.totalExpense - a.totalExpense
+        );
+        const updatedItem = sortedData.map(
+          (current, index) => {
             //i have to write an algo for sorting based on expenses
             return (
-              <div key={index}> 
-                <p>{current.totalExpense}</p>
-                <p>{current.userId}</p>
-                <p>{current.user}</p>
-                <hr></hr>
-              </div>
+              <tr key={index} className={leaderboardcss.tableRow}>
+
+                < td className={leaderboardcss.leaderPosition}>{index}</ td>
+                < td className={leaderboardcss.username}>{current.user}</ td>
+                < td className={leaderboardcss.expenses}>{current.totalExpense}</ td>
+              </tr>
             );
           }
         );
-        setItem(updatedItem)
-        setVisible(true)
+        setItem(updatedItem);
+        setVisible(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, []);
+
   return (
-    <div>
-      <button onClick={LeaderBoardHandler}>LeaderBoard</button>
-      {visible ? item:""}
+    <div className={leaderboardcss.model}>
+      <div className={leaderboardcss.container}>
+        <div className={leaderboardcss.close}>
+          <AiFillCloseCircle
+            className={leaderboardcss.closeicon}
+            onClick={closeLeaderBoardHandler}
+          ></AiFillCloseCircle>
+        </div>
+        <div className={leaderboardcss.title}>
+          <h2>Leaderboard</h2>
+        </div>
+        <table className={leaderboardcss.table}>
+          <thead className={leaderboardcss.tableHead}>
+            <tr className={leaderboardcss.tableRow}> 
+              <th>position</th>
+              <th>name</th>
+              <th>total Expenses</th>
+            </tr>
+          </thead>
+          <tbody>
+            {item}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

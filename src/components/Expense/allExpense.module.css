@@ -1,0 +1,109 @@
+.model {
+  display: flex;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(52, 165, 131, 0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  box-shadow: 2px 4px 15px 1px;
+  flex-direction: column;
+  height: 100vh;
+  flex-basis: 600px;
+  align-items: center;
+  background-color: white;
+  margin: 10px;
+}
+.close {
+  display: flex;
+
+  width: 100%;
+  justify-content: flex-end;
+}
+.closeicon {
+  height: 30px;
+  width: 30px;
+  padding-right: 20px;
+  padding-top:20px
+}
+.pageSelector {
+  display: flex;
+  padding: 10px 20px 30px 10px;
+}
+.pageSelector > h4 {
+  margin: 5px;
+}
+.slidingContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  transition: transform 0.3s ease-in-out;
+}
+.option {
+  cursor: pointer;
+}
+.option.active {
+  color: white;
+  background-color: #007bff;
+  padding: 10px 20px;
+}
+.table {
+  display: flex;
+  flex-direction: column;
+  height:65%;
+width:100%;
+  margin:10px;
+  background-color: coral;
+  overflow:auto
+}
+.tableHead{
+  display:flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  border-bottom: 2px solid coral;
+}
+.tableBody{
+  display:flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+
+}
+.tablerow{
+  display: flex;
+  justify-content: space-between;
+  padding:10px;
+  border-bottom: 4px solid coral;
+}
+.tablerowDate{
+width:60px;
+font-size: .80rem;
+font-weight: bold;
+text-align: center;
+
+
+
+}
+.tablerowAmount{
+  width:80px;
+  font-size: 1rem;
+ 
+  text-align: center;
+}
+.tablerowCategory{
+  width:50px;
+  font-size: .9rem;
+ 
+  text-align: center;
+}
+.tablerowDescription{
+  width:70px;
+  font-size: .9rem;
+  
+  text-align: center;
+}

@@ -1,12 +1,18 @@
 import axios from "axios";
-
+import React from "react";
 import { useState } from "react";
 import logincss from "./login.module.css";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { ImUserTie } from "react-icons/im";
+import {  useNavigate } from "react-router-dom"
 import { FaEnvelope } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSliceActions } from "../../store/AuthenticationSlice";
 
 const Login = () => {
+  const navigate=useNavigate()
+ const dispatch= useDispatch();
+ const loginState=useSelector(state=>state.login.loggedIn)
+ console.log(loginState);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const emailHandler = (event) => {
@@ -27,10 +33,17 @@ const Login = () => {
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("isPremium", response.data.premium);
+        localStorage.setItem("isLogged",true)
+        dispatch(loginSliceActions.Login())
+        
       })
       .catch((err) => {
         console.log(err);
       });
+      if(loginState){
+      navigate("/")
+        
+      }
   };
   return (
     <div className={logincss.loginMain}>
@@ -40,7 +53,7 @@ const Login = () => {
           <div className={logincss.titleText}>
             <b>Welcome back</b>
             <h4> user to</h4>
-            <p>"Funds tracker"</p>
+            <p>`${"funds tracker"}`</p>
           </div>
           <div className={logincss.image}></div>
         </div>

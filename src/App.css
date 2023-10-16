@@ -1,6 +1,5 @@
-.App{
-    height:100vw;
-    background-color: black;
-    width:100vw;
-    /* display:flex */
+*{
+  margin:0;
+  padding:0
 }
+
