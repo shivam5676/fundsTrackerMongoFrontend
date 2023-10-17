@@ -18,7 +18,7 @@
   flex-basis: 500px;
   align-items: center;
   background-color: white;
-  margin:10px
+  /* margin:10px */
 }
 .close {
   display: flex;

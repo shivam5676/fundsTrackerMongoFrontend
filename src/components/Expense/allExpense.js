@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import MembershipActivate from "../membership/activateMembershipbtn";
+import React, { useEffect,  useState } from "react";
+
 import DeleteExpense from "../Expense/deleteExpense";
-import { redirect } from "react-router-dom";
+
 import allcss from "./allExpense.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
+import {  useSelector } from "react-redux";
 
 const AllExpense = (props) => {
   const userDate = new Date();
@@ -16,12 +17,17 @@ const AllExpense = (props) => {
   const [itemPerPage, setItemPerPage] = useState(10);
   const [optionChange, setOptionChange] = useState("All Time");
 
+ 
+  const allState = useSelector((state) => {
+    return state.data.allData;
+  });
+
   const userDateHandler = (data) => {
     setOptionChange(data);
 
     const selectedTime = data;
 
-    if (selectedTime == "Today") {
+    if (selectedTime === "Today") {
       setFilterDate(
         userDate.toLocaleString("en-GB", {
           year: "numeric",
@@ -29,11 +35,11 @@ const AllExpense = (props) => {
           day: "2-digit",
         })
       );
-    } else if (selectedTime == "This month") {
+    } else if (selectedTime === "This month") {
       setFilterDate(
         userDate.toLocaleString("en-GB", { year: "numeric", month: "2-digit" })
       );
-    } else if (selectedTime == "This year") {
+    } else if (selectedTime === "This year") {
       setFilterDate(userDate.toLocaleString("en-GB", { year: "numeric" }));
     } else {
       setFilterDate("Default");
@@ -51,6 +57,7 @@ const AllExpense = (props) => {
       )
       .then((response) => {
         console.log(response.data);
+
         setNextPage(response.data.nextPage);
         setPrevPage(response.data.previousPage);
         const dataArray = response.data.result.map((currentIndex) => {
@@ -70,8 +77,13 @@ const AllExpense = (props) => {
               <tr key={currentIndex.id} className={allcss.tablerow}>
                 <td className={allcss.tablerowDate}>{currentIndexDate}</td>
                 <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
-                <td className={allcss.tablerowCategory}>{currentIndex.category}</td>
-                <td className={allcss.tablerowDescription}> {currentIndex.description}</td>
+                <td className={allcss.tablerowCategory}>
+                  {currentIndex.category}
+                </td>
+                <td className={allcss.tablerowDescription}>
+                  {" "}
+                  {currentIndex.description}
+                </td>
                 <td>
                   <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
                 </td>
@@ -84,7 +96,7 @@ const AllExpense = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [filterDate, currentPage, itemPerPage]);
+  }, [filterDate, currentPage, itemPerPage, allState]);
 
   const pageNoHandler = (pageNo) => {
     setCurrentPage(pageNo);
@@ -92,8 +104,8 @@ const AllExpense = (props) => {
 
   const dynamicPageHandler = (event) => {
     setItemPerPage(event.target.value);
-    localStorage.setItem("item", +event.target.value);
   };
+  localStorage.setItem("item", itemPerPage);
   const defaultVAlue = localStorage.getItem("item");
 
   const closeAllExpense = () => {
@@ -110,27 +122,11 @@ const AllExpense = (props) => {
         </div>
         <div className={allcss.pageSelector}>
           <h4>select item per page</h4>
-          <select onChange={dynamicPageHandler}>
-            {defaultVAlue == 10 ? (
-              <option selected>10</option>
-            ) : (
-              <option>10</option>
-            )}
-            {defaultVAlue == 25 ? (
-              <option selected>25</option>
-            ) : (
-              <option>25</option>
-            )}
-            {defaultVAlue == 50 ? (
-              <option selected>50</option>
-            ) : (
-              <option>50</option>
-            )}
-            {defaultVAlue == 100 ? (
-              <option selected>100</option>
-            ) : (
-              <option>100</option>
-            )}
+          <select onChange={dynamicPageHandler} defaultValue={defaultVAlue}>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
           </select>
         </div>
         <div className={allcss.slidingContainer}>

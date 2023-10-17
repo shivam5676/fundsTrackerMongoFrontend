@@ -35,15 +35,15 @@ const Login = () => {
         localStorage.setItem("isPremium", response.data.premium);
         localStorage.setItem("isLogged",true)
         dispatch(loginSliceActions.Login())
-        
+        navigate("/")
       })
       .catch((err) => {
         console.log(err);
       });
-      if(loginState){
-      navigate("/")
+      // if(loginState){
+      
         
-      }
+      // }
   };
   return (
     <div className={logincss.loginMain}>
@@ -53,7 +53,7 @@ const Login = () => {
           <div className={logincss.titleText}>
             <b>Welcome back</b>
             <h4> user to</h4>
-            <p>`${"funds tracker"}`</p>
+            <p>{"funds tracker"}</p>
           </div>
           <div className={logincss.image}></div>
         </div>
@@ -75,6 +75,7 @@ const Login = () => {
               <input
                 placeholder="enter your password "
                 onChange={passwordHandler}
+               
               ></input>
             </div>
           </div>

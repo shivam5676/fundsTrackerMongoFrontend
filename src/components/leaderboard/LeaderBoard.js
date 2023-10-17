@@ -4,7 +4,7 @@ import leaderboardcss from "./leaderboard.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const LeaderBoard = (props) => {
-  const [visible, setVisible] = useState(false);
+
   const [item, setItem] = useState(false);
   const closeLeaderBoardHandler = () => {
     props.onCloseLeaderBoard();
@@ -18,11 +18,11 @@ const LeaderBoard = (props) => {
       .then((response) => {
         console.log(response.data.leaderboardData);
         const sortedData = Object.values(response.data.leaderboardData).sort(
-          (a, b) => b.totalExpense - a.totalExpense
+          (a, b) => b.totalExpense - a.totalExpense//i have to write an algo for sorting based on expenses
         );
         const updatedItem = sortedData.map(
           (current, index) => {
-            //i have to write an algo for sorting based on expenses
+            
             return (
               <tr key={index} className={leaderboardcss.tableRow}>
 
@@ -34,7 +34,7 @@ const LeaderBoard = (props) => {
           }
         );
         setItem(updatedItem);
-        setVisible(true);
+     
       })
       .catch((err) => {
         console.log(err);

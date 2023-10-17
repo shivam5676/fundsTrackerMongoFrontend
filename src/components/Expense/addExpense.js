@@ -2,10 +2,15 @@ import React, { useRef } from "react";
 import addcss from "./addExpense.module.css";
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { dataSliceActions } from "../../store/dataSlice";
 const AddExpense = (props) => {
   const amountRef = useRef("");
   const categoryRef = useRef("");
   const descriptionRef = useRef("");
+  const dispatch=useDispatch();
+  const data=useSelector(state=>state.data.allData)
+  console.log(data)
 
   const expenseDataHandler = (event) => {
     event.preventDefault();
@@ -19,7 +24,8 @@ const AddExpense = (props) => {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.createdItem);
+        dispatch(dataSliceActions.addExpense(response.data.createdItem))
       })
       .catch((err) => {
         console.log(err);

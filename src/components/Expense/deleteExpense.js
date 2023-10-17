@@ -1,8 +1,12 @@
 import axios from "axios";
 import React from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { dataSliceActions } from "../../store/dataSlice";
 
 const DeleteExpense = (props) => {
+
+  const dispatch=useDispatch();
   const deleteItemHandler = (id) => {
     console.log(id);
     axios
@@ -13,6 +17,7 @@ const DeleteExpense = (props) => {
       )
       .then((response) => {
         console.log(response);
+dispatch(dataSliceActions.deleteExpense(id))
       })
       .catch((err) => {
         console.log(err);

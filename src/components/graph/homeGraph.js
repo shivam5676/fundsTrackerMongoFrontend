@@ -1,27 +1,45 @@
 
-
-import React from "react";
 import { Chart } from "react-google-charts";
-const PieGraph = () => {
-  const data = [
-    ["Task", "Hours per Day"],
-    ["Work", 11],
-    ["Eat", 2],
-    ["Commute", 2],
-    ["Watch TV", 2],
-    ["Sleep", 7], // CSS-style declaration
-  ];
+import { useDispatch, useSelector } from "react-redux";
+
+import { graphDataSliceActions } from "../../store/graphDataSlice";
+import { useEffect } from "react";
+const PieGraph = (props) => {
+  const dispatch=useDispatch()
+  const graphState = useSelector((state) => state.data.allData);
+  let resultArray = [];
+  let total = 0;
+  graphState.forEach((current) => {
+    const existingCategoryIndex = resultArray.findIndex(
+      (item) => item[0] === current.category
+    );
+    total = total + current.amount;
+
+    if (existingCategoryIndex !== -1) {
+      // If the category already exists, add the amount to the existing total
+      resultArray[existingCategoryIndex][1] += current.amount;
+    } else {
+      // If the category doesn't exist, create a new entry
+      resultArray.push([current.category, current.amount]);
+    }
+  });
+
+  console.log("data", resultArray);
+  const data = [["Category", "Amount"], ...resultArray];
 
   const options = {
-   
-    pieHole: 0.7,
+    pieHole: 0.65,
     is3D: false,
-    backgroundColor:"transparent",
+    backgroundColor: "transparent",
     pieSliceText: "none",
     legend: {
-        position: "none", // Set the legend position to "right"
-      },
+      position: "none",
+    },
   };
+  useEffect(()=>{
+    dispatch(graphDataSliceActions.graphTotal(total))
+  },[graphState])
+
   return (
     <Chart
       chartType="PieChart"
@@ -33,4 +51,4 @@ const PieGraph = () => {
     />
   );
 };
-export default PieGraph
+export default PieGraph;
