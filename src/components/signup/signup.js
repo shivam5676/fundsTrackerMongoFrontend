@@ -35,7 +35,7 @@ const SignUp = () => {
     }
   };
 
-  const submitDataHandler = (event) => {
+  const submitDataHandler = async (event) => {
     event.preventDefault();
     const myobj = {
       name: name,
@@ -43,20 +43,16 @@ const SignUp = () => {
       confirmPassword: confirmPassword,
       email: email,
     };
-    axios
-      .post("http://localhost:8000/user/signup", myobj)
-      .then((res) => {
-        
+    try {
+      const res = axios.post("http://localhost:8000/user/signup", myobj);
 
-        toast.success(res.data.message);
-        navigate("/");
-      })
-      .catch((err) => {
-      
-        if (err.response.data.message) {
-          toast.error(err.response.data.message);
-        }
-      });
+      toast.success(res.data.message);
+      navigate("/");
+    } catch (err) {
+      if (err.response.data.message) {
+        toast.error(err.response.data.message);
+      }
+    }
   };
 
   return (

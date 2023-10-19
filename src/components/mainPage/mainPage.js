@@ -11,17 +11,21 @@ const MainPage = (props) => {
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/user/getexpense`, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
-      .then((response) => {
-        response.data.result.forEach((element) => {
-          dispatch(dataSliceActions.addExpense(element));
-        });
-      })
-      .catch((err) => {});
+  useEffect(async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/user/getexpense`,
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+
+      response.data.result.forEach((element) => {
+        dispatch(dataSliceActions.addExpense(element));
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
   const [total, setTotal] = useState(0);
 
@@ -47,7 +51,11 @@ const MainPage = (props) => {
           <div className={maincss.profileCard}>
             <div className={maincss.profile}>
               <p className={maincss.profileName}>hello !! Shivam</p>
-             { premiumState?<p className={maincss.prouser}>premium user</p>:<p className={maincss.normaluser}>normal user</p>}
+              {premiumState ? (
+                <p className={maincss.prouser}>premium user</p>
+              ) : (
+                <p className={maincss.normaluser}>normal user</p>
+              )}
             </div>
             <div className={maincss.graphTotal}>
               <div className={maincss.totalExpense}>

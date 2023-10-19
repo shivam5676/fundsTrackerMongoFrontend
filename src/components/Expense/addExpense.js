@@ -5,36 +5,38 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+
 const AddExpense = (props) => {
   const amountRef = useRef("");
   const categoryRef = useRef("");
   const descriptionRef = useRef("");
-  const dispatch=useDispatch();
-  const navigate=useNavigate()
-  const data=useSelector(state=>state.data.allData)
-  console.log(data)
+  const dispatch = useDispatch();
+  
+  const data = useSelector((state) => state.data.allData);
+  console.log(data);
 
-  const expenseDataHandler = (event) => {
+  const expenseDataHandler = async (event) => {
     event.preventDefault();
     const myobj = {
       amount: +amountRef.current.value,
       category: categoryRef.current.value,
       description: descriptionRef.current.value,
     };
-    axios
-      .post("http://localhost:8000/user/addexpense", myobj, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
-      .then((response) => {
-        console.log(response.data.createdItem);
-        dispatch(dataSliceActions.addExpense(response.data.createdItem))
-        toast.success("expense added successfully")
-        closeAddExpense()
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/user/addexpense",
+        myobj,
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+
+      dispatch(dataSliceActions.addExpense(response.data.createdItem));
+      toast.success("expense added successfully");
+      closeAddExpense();
+    } catch (err) {
+      toast.success(err);
+    }
   };
   const closeAddExpense = () => {
     props.onCloseAddExpense();

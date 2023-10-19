@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import DeleteExpense from "../Expense/deleteExpense";
 
 import allcss from "./allExpense.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const AllExpense = (props) => {
   const userDate = new Date();
@@ -17,7 +17,6 @@ const AllExpense = (props) => {
   const [itemPerPage, setItemPerPage] = useState(10);
   const [optionChange, setOptionChange] = useState("All Time");
 
- 
   const allState = useSelector((state) => {
     return state.data.allData;
   });
@@ -46,56 +45,49 @@ const AllExpense = (props) => {
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     const items = localStorage.getItem("item");
-    axios
-      .get(
+    try {
+      const response = await axios.get(
         `http://localhost:8000/user/getexpense?pageNo=${currentPage}&&item=${items}`,
         {
           headers: { Authorization: localStorage.getItem("token") },
         }
-      )
-      .then((response) => {
-        console.log(response.data);
+      );
 
-        setNextPage(response.data.nextPage);
-        setPrevPage(response.data.previousPage);
-        const dataArray = response.data.result.map((currentIndex) => {
-          const currentIndexDate = new Date(
-            currentIndex.updatedAt
-          ).toLocaleString("en-GB", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          });
-          console.log(currentIndexDate);
-          if (
-            currentIndexDate.includes(filterDate) ||
-            filterDate === "Default"
-          ) {
-            return (
-              <tr key={currentIndex.id} className={allcss.tablerow}>
-                <td className={allcss.tablerowDate}>{currentIndexDate}</td>
-                <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
-                <td className={allcss.tablerowCategory}>
-                  {currentIndex.category}
-                </td>
-                <td className={allcss.tablerowDescription}>
-                  {" "}
-                  {currentIndex.description}
-                </td>
-                <td>
-                  <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
-                </td>
-              </tr>
-            );
-          }
+      setNextPage(response.data.nextPage);
+      setPrevPage(response.data.previousPage);
+      const dataArray = response.data.result.map((currentIndex) => {
+        const currentIndexDate = new Date(
+          currentIndex.updatedAt
+        ).toLocaleString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
         });
-        setAllData(dataArray);
-      })
-      .catch((err) => {
-        console.log(err);
+        if (currentIndexDate.includes(filterDate) || filterDate === "Default") {
+          return (
+            <tr key={currentIndex.id} className={allcss.tablerow}>
+              <td className={allcss.tablerowDate}>{currentIndexDate}</td>
+              <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
+              <td className={allcss.tablerowCategory}>
+                {currentIndex.category}
+              </td>
+              <td className={allcss.tablerowDescription}>
+                {" "}
+                {currentIndex.description}
+              </td>
+              <td>
+                <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
+              </td>
+            </tr>
+          );
+        }
       });
+      setAllData(dataArray);
+    } catch (err) {
+      console.log(err);
+    }
   }, [filterDate, currentPage, itemPerPage, allState]);
 
   const pageNoHandler = (pageNo) => {

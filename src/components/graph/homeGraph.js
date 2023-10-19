@@ -1,12 +1,12 @@
 
 import { Chart } from "react-google-charts";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 
 import { useEffect } from "react";
 
 const PieGraph = (props) => {
-  const dispatch=useDispatch()
+
   const graphState = useSelector((state) => state.data.allData);
   
   let resultArray = [];
@@ -38,17 +38,13 @@ const PieGraph = (props) => {
     legend: {
       position: "none",
     },
-  //  tooltip: {
-  //     trigger: 'focus',
-  //     isHtml: false,
-  //     position: "center", // Change the tooltip position
-  //   }
+
     
   };
   useEffect(()=>{
  
     props.graphTotal(total);
-    // total=0;
+   
   },[graphState])
 
   return (
