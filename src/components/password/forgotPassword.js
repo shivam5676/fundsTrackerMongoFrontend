@@ -2,18 +2,28 @@ import fpcss from "./forgotPassword.module.css";
 import { FaEnvelope } from "react-icons/fa";
 import { GiCrossMark } from "react-icons/gi";
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
+  
+  const[message,setMessage]=useState("")
+  const navigate=useNavigate()
   const emailref = useRef("");
   const forgotPasswordHandler = () => {
     const emailValue = emailref.current.value;
     axios
-      .post("http://localhost:8000/user//password/forgot", {email:emailValue})
+      .post("http://localhost:8000/user/password/forgot", {
+        email: emailValue,
+      })
       .then((res) => {
-        console.log(res);
+        if(res.data.status==="success"){
+        
+          setMessage(res.data.message)
+        }
+   
       })
       .catch((err) => {
-        console.log(err);
+        setMessage(err.response.data.message)
       });
   };
   return (
@@ -22,7 +32,14 @@ const ForgotPassword = () => {
         <div className={fpcss.title}>
           <h3>forgot password</h3>
         </div>
-        <div className={fpcss.close}>
+        <div
+          className={fpcss.close}
+          onClick={() => {
+            navigate(-1);/*we are using -1 to go back to previous page*/
+          }}
+        >
+      
+       
           <button>
             <GiCrossMark className={fpcss.icon}></GiCrossMark>
           </button>
@@ -37,7 +54,8 @@ const ForgotPassword = () => {
               ref={emailref}
             ></input>
           </div>
-        </div>
+         
+        </div><div className={fpcss.message}>{message}</div> 
         <div className={fpcss.recoverybtn}>
           <button onClick={forgotPasswordHandler}>Send Password</button>
         </div>

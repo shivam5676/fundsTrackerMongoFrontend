@@ -7,12 +7,13 @@ import {  useNavigate } from "react-router-dom"
 import { FaEnvelope } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const navigate=useNavigate()
  const dispatch= useDispatch();
  const loginState=useSelector(state=>state.login.loggedIn)
- console.log(loginState);
+
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const emailHandler = (event) => {
@@ -35,15 +36,14 @@ const Login = () => {
         localStorage.setItem("isPremium", response.data.premium);
         localStorage.setItem("isLogged",true)
         dispatch(loginSliceActions.Login())
+        toast.success(response.data.message)
         navigate("/")
+        
       })
       .catch((err) => {
-        console.log(err);
+       return toast.error(err.response.data.message)
       });
-      // if(loginState){
       
-        
-      // }
   };
   return (
     <div className={logincss.loginMain}>
@@ -78,9 +78,12 @@ const Login = () => {
                
               ></input>
             </div>
+
           </div>
         </form>
-        <div className={logincss.forgotPass}>forgot password ?</div>
+        <div className={logincss.forgotPass} onClick={()=>{
+          navigate("/forgotPassword")
+        }}>forgot password ?</div>
         <div className={logincss.button}>
           <button onClick={loginDataHandler}>LOGIN</button>
         </div>
@@ -89,6 +92,7 @@ const Login = () => {
           <a href="/signup">signup here</a>
         </div>
       </div>
+      
     </div>
   );
 };

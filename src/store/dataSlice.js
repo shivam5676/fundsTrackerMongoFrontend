@@ -7,11 +7,12 @@ const dataSlice = createSlice({
   initialState: expenseData,
   reducers: {
     addExpense(state, action) {
-      console.log(action.payload);
+      
+     
       state.allData.push(action.payload);
     },
     deleteExpense(state, action) {
-      console.log(action.payload);
+     
       const updatedArray = state.allData.filter(
         (current) => current.id !== action.payload
       );
@@ -20,6 +21,11 @@ const dataSlice = createSlice({
     leaderBoard(state, action) {
       state.leaderBoardData = action.payload;
     },
+ 
+    reset(state){
+      state.allData=[]
+      state.leaderBoardData=[]
+    }
   },
 });
 export const dataSliceActions = dataSlice.actions;

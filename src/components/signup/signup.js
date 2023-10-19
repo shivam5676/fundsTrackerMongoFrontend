@@ -6,12 +6,15 @@ import { FaEnvelope } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { ImUserTie } from "react-icons/im";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passIsValid, setPassIsValid] = useState(false);
+  const navigate = useNavigate();
 
   const nameHandler = (event) => {
     setName(event.target.value);
@@ -37,22 +40,31 @@ const SignUp = () => {
     const myobj = {
       name: name,
       password: password,
+      confirmPassword: confirmPassword,
       email: email,
     };
     axios
       .post("http://localhost:8000/user/signup", myobj)
-      .then((response) => {
-        console.log(response);
+      .then((res) => {
+        
+
+        toast.success(res.data.message);
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+      
+        if (err.response.data.message) {
+          toast.error(err.response.data.message);
+        }
       });
   };
 
   return (
     <div className={signupcss.signupMain}>
       <div className={signupcss.container}>
-        <div className={signupcss.circle}><div>+</div></div>
+        <div className={signupcss.circle}>
+          <div>+</div>
+        </div>
         <div className={signupcss.title}>
           <div className={signupcss.titleText}>
             <h3>hello, user !!</h3>
@@ -61,7 +73,7 @@ const SignUp = () => {
           </div>
           <div className={signupcss.image}></div>
         </div>
-        <form classname={signupcss.form}>
+        <form className={signupcss.form}>
           <div className={signupcss.inputTab}>
             <p>Full Name</p>
             <div>

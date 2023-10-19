@@ -1,54 +1,75 @@
-import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri"
-import upcss from "./updatePassword.module.css"
-import { GiCrossMark } from "react-icons/gi"
-import { useRef } from "react";
+import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
+import upcss from "./updatePassword.module.css";
+import { GiCrossMark } from "react-icons/gi";
+import { useRef, useState } from "react";
 import axios from "axios";
-const UpdatePassword=()=>{
-    const passwordRef=useRef("");
-    const updatePasswordHandler=()=>{
-axios.post("http://localhost:8000/user/password/resetpassword/96c81373-6d2b-452f-a65d-6ce77e457e39")
-    }
+import { useNavigate, useParams } from "react-router-dom";
+const UpdatePassword = () => {
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate=useNavigate();
+  const param = useParams();
+  const uuid = param.uuid;
+  const passwordRef = useRef("");
+  const confirmPasswordRef = useRef("");
+  const updatePasswordHandler = () => {
+    const myobj = {
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value,
+      uuid: uuid,
+    };
+    axios
+      .post(`http://localhost:8000/user/password/resetpassword`, myobj)
+      .then((res) => {
+        setMessage(res.data.message);
+        if (res.data.status === "success") {
+          setSuccess(true);
+        }
+      })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
+  };
 
-    return(
-        <div className={upcss.main}>
+  return (
+    <div className={upcss.main}>
       <div className={upcss.container}>
         <div className={upcss.title}>
           <h3>forgot password</h3>
         </div>
-        <div className={upcss.close}>
+        <div className={upcss.close} onClick={()=>navigate("/")}>
           <button>
             <GiCrossMark className={upcss.icon}></GiCrossMark>
           </button>
         </div>
         <div className={upcss.form}>
-            <RiLockPasswordFill className={upcss.envicon}></RiLockPasswordFill>
-          
+          <RiLockPasswordFill className={upcss.envicon}></RiLockPasswordFill>
+
           <div className={upcss.inputlabel}>
             <div>password</div>
 
-            <input
-              placeholder="Enter New Password"
-              ref={passwordRef}
-            ></input>
+            <input placeholder="Enter New Password" ref={passwordRef}></input>
           </div>
 
           <RiLockPasswordLine className={upcss.envicon}></RiLockPasswordLine>
-          
+
           <div className={upcss.inputlabel}>
             <div>Confirm Password</div>
 
             <input
               placeholder="Re-type password"
-              ref={passwordRef}
+              ref={confirmPasswordRef}
             ></input>
           </div>
         </div>
-        
-        <div className={upcss.recoverybtn}>
-          <button onClick={updatePasswordHandler}>Send Password</button>
-        </div>
+        <div className={upcss.message}>{message}</div>
+        {!success?<div className={upcss.recoverybtn}>
+          <button onClick={updatePasswordHandler}>update Password</button>
+        </div>:<div className={upcss.recoverybtn}>
+          <button onClick={()=>navigate("/")}>login now</button>
+        </div>}
       </div>
     </div>
-    )
-}
-export default UpdatePassword
+  );
+};
+export default UpdatePassword;

@@ -3,11 +3,18 @@ import sidecss from "./sidePanel.module.css";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
-const SidePanel = () => {
+import { useNavigate } from "react-router-dom";
+import { dataSliceActions } from "../../store/dataSlice";
+
+
+const SidePanel = () => {const navigate=useNavigate()
   const dispatch=useDispatch()
   const logoutHandler=()=>{
 dispatch(loginSliceActions.LogOut())
+dispatch(dataSliceActions.reset())
+
 localStorage.removeItem("isLogged")
+localStorage.removeItem("token")
   }
   return (
     <div className={sidecss.sideContainer}>
@@ -17,7 +24,8 @@ localStorage.removeItem("isLogged")
       </div>
       <div className={sidecss.sideColumn}>
         <AiTwotoneSetting className={sidecss.icon}></AiTwotoneSetting>
-        <div className={sidecss.title}>Setting</div>
+        <div className={sidecss.title} onClick={()=>{
+          navigate("/forgotPassword")}}>Setting</div>
       </div>
       <div className={sidecss.sideColumn} onClick={logoutHandler}>
         <RiLogoutBoxRFill className={sidecss.icon}></RiLogoutBoxRFill>

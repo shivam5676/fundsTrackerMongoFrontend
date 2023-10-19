@@ -66,6 +66,7 @@ width:100vw;
 }
 .form {
   display: flex;
+  flex-direction: column;
 }
 .inputTab {
   margin-left: 10px;

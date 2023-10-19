@@ -52,16 +52,18 @@ height:80vh;
   display: flex;
   justify-content: center;
   margin: 5px;
-  background-color: antiquewhite;
-  border-radius: 15px;
+  /* background-color: antiquewhite; */
+  color:aliceblue;
+  border-radius: 10px;
   width: fit-content;
-  padding: 1px 10px;
+  padding: 5px 10px;
   font-weight: 900;
 }
 .graphTotal {
   display: flex;
   height: 130px;
-  width: 100%;border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
  margin-top: 10px;
   justify-content: space-around;
   border: 2px solid black;
@@ -72,8 +74,6 @@ height:80vh;
   flex-direction: column;
   width: 130px;
   padding: 5px;
-  
-  
   align-items: center;
   text-align: center;
 }
@@ -91,9 +91,8 @@ height:80vh;
 .graph {
   display: flex;
   justify-content: flex-end;
-
   position: relative;
-  bottom: 35px;
+  bottom: 30px;
   left: 10px;
 }
 .singleCard,
@@ -124,5 +123,16 @@ height:80vh;
 }
 
 
+.normaluser{
+  background-color: goldenrod;
+}
 
+.prouser{
+  background-color: deeppink;
+  text-align: center;
+}
+.profileName{
+  background-color: dodgerblue;
+  text-align: center;
+}
 

@@ -26,7 +26,7 @@ const LeaderBoard = (props) => {
             return (
               <tr key={index} className={leaderboardcss.tableRow}>
 
-                < td className={leaderboardcss.leaderPosition}>{index}</ td>
+                < td className={leaderboardcss.leaderPosition}>{index+1}</ td>
                 < td className={leaderboardcss.username}>{current.user}</ td>
                 < td className={leaderboardcss.expenses}>{current.totalExpense}</ td>
               </tr>

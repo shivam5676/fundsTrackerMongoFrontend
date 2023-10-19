@@ -2,13 +2,16 @@
 import { Chart } from "react-google-charts";
 import { useDispatch, useSelector } from "react-redux";
 
-import { graphDataSliceActions } from "../../store/graphDataSlice";
+
 import { useEffect } from "react";
+
 const PieGraph = (props) => {
   const dispatch=useDispatch()
   const graphState = useSelector((state) => state.data.allData);
+  
   let resultArray = [];
   let total = 0;
+  
   graphState.forEach((current) => {
     const existingCategoryIndex = resultArray.findIndex(
       (item) => item[0] === current.category
@@ -24,30 +27,39 @@ const PieGraph = (props) => {
     }
   });
 
-  console.log("data", resultArray);
+  
   const data = [["Category", "Amount"], ...resultArray];
 
   const options = {
-    pieHole: 0.65,
+    pieHole: 0.8,
     is3D: false,
     backgroundColor: "transparent",
     pieSliceText: "none",
     legend: {
       position: "none",
     },
+  //  tooltip: {
+  //     trigger: 'focus',
+  //     isHtml: false,
+  //     position: "center", // Change the tooltip position
+  //   }
+    
   };
   useEffect(()=>{
-    dispatch(graphDataSliceActions.graphTotal(total))
+ 
+    props.graphTotal(total);
+    // total=0;
   },[graphState])
 
   return (
     <Chart
       chartType="PieChart"
       width="180px"
-      height="200px"
+      height="180px"
       data={data}
       options={options}
       background-color="transparent"
+      
     />
   );
 };

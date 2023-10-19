@@ -1,5 +1,5 @@
 import {  createSlice } from "@reduxjs/toolkit";
-const loginState = { loggedIn: false };
+const loginState = { loggedIn: false ,isPremium:false};
 
 const AuthenticationSlice=createSlice({
   name: "login",
@@ -10,6 +10,11 @@ const AuthenticationSlice=createSlice({
     },
     LogOut:(state)=>{
         state.loggedIn=false;
+        state.isPremium=false
+    },
+    premium(state){
+      state.isPremium=true
+      
     }
   },
 });

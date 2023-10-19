@@ -4,11 +4,14 @@ import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AddExpense = (props) => {
   const amountRef = useRef("");
   const categoryRef = useRef("");
   const descriptionRef = useRef("");
   const dispatch=useDispatch();
+  const navigate=useNavigate()
   const data=useSelector(state=>state.data.allData)
   console.log(data)
 
@@ -26,6 +29,8 @@ const AddExpense = (props) => {
       .then((response) => {
         console.log(response.data.createdItem);
         dispatch(dataSliceActions.addExpense(response.data.createdItem))
+        toast.success("expense added successfully")
+        closeAddExpense()
       })
       .catch((err) => {
         console.log(err);
