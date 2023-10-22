@@ -10,23 +10,27 @@ import MembershipActivate from "../membership/activateMembershipbtn";
 const MainPage = (props) => {
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);
-
-  useEffect(async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/user/getexpense`,
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      );
-
-      response.data.result.forEach((element) => {
-        dispatch(dataSliceActions.addExpense(element));
+  const [name,setname]=useState("")
+let username=""
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/user/getexpense`, {
+        headers: { Authorization: localStorage.getItem("token") },
+      })
+      .then((response) => {
+        response.data.result.forEach((element) => {
+          dispatch(dataSliceActions.addExpense(element));
+        });
+       
+        localStorage.setItem("username",response.data.username)
+      setname(response.data.username);
+      
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } catch (err) {
-      console.log(err);
-    }
   }, []);
+
   const [total, setTotal] = useState(0);
 
   const graphTotalHandler = (amount) => {
@@ -50,7 +54,7 @@ const MainPage = (props) => {
         <div className={maincss.parent}>
           <div className={maincss.profileCard}>
             <div className={maincss.profile}>
-              <p className={maincss.profileName}>hello !! Shivam</p>
+              <p className={maincss.profileName}>hello !! {name}</p>
               {premiumState ? (
                 <p className={maincss.prouser}>premium user</p>
               ) : (

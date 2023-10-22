@@ -45,49 +45,57 @@ const AllExpense = (props) => {
     }
   };
 
-  useEffect(async () => {
-    const items = localStorage.getItem("item");
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/user/getexpense?pageNo=${currentPage}&&item=${items}`,
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      );
-
-      setNextPage(response.data.nextPage);
-      setPrevPage(response.data.previousPage);
-      const dataArray = response.data.result.map((currentIndex) => {
-        const currentIndexDate = new Date(
-          currentIndex.updatedAt
-        ).toLocaleString("en-GB", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const items = localStorage.getItem("item");
+        const response = await axios.get(
+          `http://localhost:8000/user/getexpense?pageNo=${currentPage}&&item=${items}`,
+          {
+            headers: { Authorization: localStorage.getItem("token") },
+          }
+        );
+  
+        setNextPage(response.data.nextPage);
+        setPrevPage(response.data.previousPage);
+  
+        const dataArray = response.data.result.map((currentIndex) => {
+          const currentIndexDate = new Date(
+            currentIndex.updatedAt
+          ).toLocaleString("en-GB", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+          if (currentIndexDate.includes(filterDate) || filterDate === "Default") {
+            return (
+              <tr key={currentIndex.id} className={allcss.tablerow}>
+                <td className={allcss.tablerowDate}>{currentIndexDate}</td>
+                <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
+                <td className={allcss.tablerowCategory}>
+                  {currentIndex.category}
+                </td>
+                <td className={allcss.tablerowDescription}>
+                  {" "}
+                  {currentIndex.description}
+                </td>
+                <td>
+                  <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
+                </td>
+              </tr>
+            );
+          }
         });
-        if (currentIndexDate.includes(filterDate) || filterDate === "Default") {
-          return (
-            <tr key={currentIndex.id} className={allcss.tablerow}>
-              <td className={allcss.tablerowDate}>{currentIndexDate}</td>
-              <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
-              <td className={allcss.tablerowCategory}>
-                {currentIndex.category}
-              </td>
-              <td className={allcss.tablerowDescription}>
-                {" "}
-                {currentIndex.description}
-              </td>
-              <td>
-                <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
-              </td>
-            </tr>
-          );
-        }
-      });
-      setAllData(dataArray);
-    } catch (err) {
-      console.log(err);
-    }
+  
+        setAllData(dataArray);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+    fetchData(); // Call the async function immediately
+  
+    // Add dependencies as needed
   }, [filterDate, currentPage, itemPerPage, allState]);
 
   const pageNoHandler = (pageNo) => {

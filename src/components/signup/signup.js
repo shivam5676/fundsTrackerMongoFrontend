@@ -44,14 +44,14 @@ const SignUp = () => {
       email: email,
     };
     try {
-      const res = axios.post("http://localhost:8000/user/signup", myobj);
+      const res =await axios.post("http://localhost:8000/user/signup", myobj);
 
       toast.success(res.data.message);
       navigate("/");
     } catch (err) {
-      if (err.response.data.message) {
-        toast.error(err.response.data.message);
-      }
+    
+      toast.error(err.response.data.message)
+     
     }
   };
 

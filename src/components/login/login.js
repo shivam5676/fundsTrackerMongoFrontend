@@ -38,10 +38,12 @@ const Login = () => {
       localStorage.setItem("isPremium", response.data.premium);
       localStorage.setItem("isLogged", true);
       dispatch(loginSliceActions.Login());
+      console.log(response)
       toast.success(response.data.message);
       navigate("/");
     } catch (err) {
-      return toast.error(err.response.data.message);
+      console.log(err)
+       toast.error(err.response.data.message);
     }
   };
   return (

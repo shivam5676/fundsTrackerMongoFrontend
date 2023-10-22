@@ -25,6 +25,10 @@ const UpdatePassword = () => {
         if (res.data.status === "success") {
           setSuccess(true);
         }
+        setTimeout(()=>{
+          navigate("/")
+        },3000)
+        
       })
       .catch((err) => {
         setMessage(err.response.data.message);

@@ -27,6 +27,7 @@ function App() {
     if(localStorage.getItem("isPremium") === "true"){
       dispatch(loginSliceActions.premium())
     }
+    
   }, []);
 
  

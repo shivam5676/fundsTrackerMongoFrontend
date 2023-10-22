@@ -16,6 +16,7 @@ const AuthenticationSlice=createSlice({
       state.isPremium=true
       
     }
+    
   },
 });
 

@@ -9,30 +9,35 @@ const LeaderBoard = (props) => {
     props.onCloseLeaderBoard();
   };
 
-  useEffect(async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8000/premiumUser/leaderboard",
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      );
-      const sortedData = Object.values(response.data.leaderboardData).sort(
-        (a, b) => b.totalExpense - a.totalExpense //i have to write an algo for sorting based on expenses
-      );
-      const updatedItem = sortedData.map((current, index) => {
-        return (
-          <tr key={index} className={leaderboardcss.tableRow}>
-            <td className={leaderboardcss.leaderPosition}>{index + 1}</td>
-            <td className={leaderboardcss.username}>{current.user}</td>
-            <td className={leaderboardcss.expenses}>{current.totalExpense}</td>
-          </tr>
+  useEffect(() => {
+    async function getLeaderBoardData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/premiumUser/leaderboard",
+          {
+            headers: { Authorization: localStorage.getItem("token") },
+          }
         );
-      });
-      setItem(updatedItem);
-    } catch (err) {
-      console.log(err);
+        const sortedData = Object.values(response.data.leaderboardData).sort(
+          (a, b) => b.totalExpense - a.totalExpense //i have to write an algo for sorting based on expenses
+        );
+        const updatedItem = sortedData.map((current, index) => {
+          return (
+            <tr key={index} className={leaderboardcss.tableRow}>
+              <td className={leaderboardcss.leaderPosition}>{index + 1}</td>
+              <td className={leaderboardcss.username}>{current.user}</td>
+              <td className={leaderboardcss.expenses}>
+                {current.totalExpense}
+              </td>
+            </tr>
+          );
+        });
+        setItem(updatedItem);
+      } catch (err) {
+        console.log(err);
+      }
     }
+    getLeaderBoardData();
   }, []);
 
   return (
