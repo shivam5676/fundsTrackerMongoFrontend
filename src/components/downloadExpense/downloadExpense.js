@@ -3,9 +3,10 @@ import PreviousExpenseFile from "./previousGeneratedExpense";
 import axios from "axios";
 
 const DownloadExpense = () => {
+  const domain="http://20.197.42.90:8000"
  const downloadExpenseHandler=()=>{
     axios
-    .get("http://localhost:8000/premiumuser/downloadexpense", {
+    .get(`${domain}/premiumuser/downloadexpense}`, {
       headers: { Authorization: localStorage.getItem("token") },
     })
     .then((res) => {

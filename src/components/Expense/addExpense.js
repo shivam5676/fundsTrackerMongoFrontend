@@ -7,6 +7,7 @@ import { dataSliceActions } from "../../store/dataSlice";
 import { toast } from "react-toastify";
 
 const AddExpense = (props) => {
+  const domain="http://20.197.42.90:8000"
   const amountRef = useRef("");
   const categoryRef = useRef("");
   const descriptionRef = useRef("");
@@ -24,7 +25,7 @@ const AddExpense = (props) => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8000/user/addexpense",
+        `${domain}/user/addexpense`,
         myobj,
         {
           headers: { Authorization: localStorage.getItem("token") },

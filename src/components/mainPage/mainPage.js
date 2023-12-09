@@ -8,13 +8,14 @@ import { dataSliceActions } from "../../store/dataSlice";
 import MembershipActivate from "../membership/activateMembershipbtn";
 
 const MainPage = (props) => {
+  const domain="http://20.197.42.90:8000"
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);
   const [name,setname]=useState("")
 let username=""
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/user/getexpense`, {
+      .get(`${domain}/user/getexpense`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
@@ -54,7 +55,7 @@ let username=""
         <div className={maincss.parent}>
           <div className={maincss.profileCard}>
             <div className={maincss.profile}>
-              <p className={maincss.profileName}>hello !! {name}</p>
+              <p className={maincss.profileName}> {name}</p>
               {premiumState ? (
                 <p className={maincss.prouser}>premium user</p>
               ) : (

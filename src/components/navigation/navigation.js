@@ -4,7 +4,7 @@ const Navigation=()=>{
     return(
        <div className={navcss.navigation}>
           <div className={navcss.sidebtn}>
-            <TfiMenuAlt className={navcss.menuicon}></TfiMenuAlt>
+            {/* <TfiMenuAlt className={navcss.menuicon}></TfiMenuAlt> */}
           </div>
           <div className={navcss.titleContainer}>
             <p className={navcss.title}>FUNDS TRACKER</p>

@@ -95,9 +95,13 @@ width:100vw;
 .signupbtn {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 10px;
 }
 .signupbtn > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   height: 40px;
   border-radius: 20px;

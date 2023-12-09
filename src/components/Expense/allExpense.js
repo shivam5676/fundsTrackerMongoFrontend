@@ -8,6 +8,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 const AllExpense = (props) => {
+  const domain="http://20.197.42.90:8000"
   const userDate = new Date();
   const [filterDate, setFilterDate] = useState("Default");
   const [allData, setAllData] = useState([]);
@@ -50,7 +51,7 @@ const AllExpense = (props) => {
       try {
         const items = localStorage.getItem("item");
         const response = await axios.get(
-          `http://localhost:8000/user/getexpense?pageNo=${currentPage}&&item=${items}`,
+          `${domain}/user/getexpense?pageNo=${currentPage}&&item=${items}`,
           {
             headers: { Authorization: localStorage.getItem("token") },
           }

@@ -8,11 +8,15 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { ImUserTie } from "react-icons/im";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ThreeDots } from "react-loader-spinner";
+
 const SignUp = () => {
+ const domain="http://20.197.42.90:8000"
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loginLoader, setLoginLoader] = useState(false);
   const [passIsValid, setPassIsValid] = useState(false);
   const navigate = useNavigate();
 
@@ -36,6 +40,7 @@ const SignUp = () => {
   };
 
   const submitDataHandler = async (event) => {
+    setLoginLoader(true)
     event.preventDefault();
     const myobj = {
       name: name,
@@ -44,13 +49,25 @@ const SignUp = () => {
       email: email,
     };
     try {
-      const res =await axios.post("http://localhost:8000/user/signup", myobj);
-
-      toast.success(res.data.message);
+      const res =await axios.post(`${domain}/user/signup`, myobj);
+      setTimeout(() => {
+       toast.success(res.data.message);
+       setLoginLoader(false);
       navigate("/");
-    } catch (err) {
+      }, 1500);
     
-      toast.error(err.response.data.message)
+    } catch (err) {
+     
+     
+        setLoginLoader(false);
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error("something went wrong.....try after sometime ");
+        }
+  
+    
+      
      
     }
   };
@@ -118,7 +135,16 @@ const SignUp = () => {
           {/* {!passIsValid && password.length>=6 ? <h1>password and confirm password not matched</h1>:""} */}
         </form>
         <div className={signupcss.signupbtn}>
-          <button onClick={submitDataHandler}>SIGN UP</button>
+          <button onClick={submitDataHandler}>{loginLoader?<ThreeDots 
+height="40" 
+width="80" 
+radius="9"
+color="aliceblue" 
+ariaLabel="three-dots-loading"
+wrapperStyle={{}}
+wrapperClassName=""
+visible={true}
+ />:"SIGN UP"}</button>
         </div>
         <div className={signupcss.loginbtn}>
           <p>Already have an account</p>

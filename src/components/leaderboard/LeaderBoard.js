@@ -4,6 +4,7 @@ import leaderboardcss from "./leaderboard.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const LeaderBoard = (props) => {
+  const domain="http://20.197.42.90:8000"
   const [item, setItem] = useState(false);
   const closeLeaderBoardHandler = () => {
     props.onCloseLeaderBoard();
@@ -13,7 +14,7 @@ const LeaderBoard = (props) => {
     async function getLeaderBoardData() {
       try {
         const response = await axios.get(
-          "http://localhost:8000/premiumUser/leaderboard",
+          `${domain}/premiumUser/leaderboard`,
           {
             headers: { Authorization: localStorage.getItem("token") },
           }

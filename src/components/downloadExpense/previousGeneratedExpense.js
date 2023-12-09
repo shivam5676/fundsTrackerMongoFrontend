@@ -2,10 +2,11 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const PreviousExpenseFile = () => {
+  const domain="http://20.197.42.90:8000"
   useEffect(() => {
     console.log("previous running")
     axios
-      .get("http://localhost:8000/premiumuser/previousdownloadexpense", {
+      .get(`${domain}/premiumuser/previousdownloadexpense`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((res) => {
@@ -14,6 +15,7 @@ const PreviousExpenseFile = () => {
       .catch((err) => {
         console.log(err);
       });
+      
   }, []);
 
   return (

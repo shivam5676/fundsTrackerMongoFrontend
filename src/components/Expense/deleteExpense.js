@@ -5,11 +5,12 @@ import { useDispatch } from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
 
 const DeleteExpense = (props) => {
+  const domain="http://20.197.42.90:8000"
   const dispatch = useDispatch();
   const deleteItemHandler = async (id) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/user/deleteexpense",
+        `${domain}/user/deleteexpense`,
         { id: id },
         { headers: { Authorization: localStorage.getItem("token") } }
       );

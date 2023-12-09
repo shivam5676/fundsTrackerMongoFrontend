@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { Dna } from "react-loader-spinner";
 
 const Login = () => {
+  const domain = "http://20.197.42.90:8000";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.login.loggedIn);
-
+  const [loginLoader, setLoginLoader] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const emailHandler = (event) => {
@@ -23,27 +24,29 @@ const Login = () => {
     setPassword(event.target.value);
   };
   const loginDataHandler = async (event) => {
+    setLoginLoader(true);
     event.preventDefault();
     const myobj = {
       email: email,
       password: password,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:8000/user/login",
-        myobj
-      );
+      const response = await axios.post(`${domain}/user/login`, myobj);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("isPremium", response.data.premium);
       localStorage.setItem("isLogged", true);
       dispatch(loginSliceActions.Login());
-      console.log(response)
-      toast.success(response.data.message);
+
       navigate("/");
     } catch (err) {
-      console.log(err)
-       toast.error(err.response.data.message);
+      if (err.response) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("something went wrong.....try after sometime ");
+      }
+
+      setLoginLoader(false);
     }
   };
   return (
@@ -95,8 +98,22 @@ const Login = () => {
           forgot password ?
         </div>
         <div className={logincss.button}>
-          <button onClick={loginDataHandler}>LOGIN</button>
+          <button onClick={loginDataHandler}>
+            {loginLoader ? (
+              <Dna
+                visible={true}
+                height="40"
+                width="100"
+                ariaLabel="dna-loading"
+                wrapperStyle={{}}
+                wrapperClass="dna-wrapper"
+              />
+            ) : (
+              "LOGIN"
+            )}
+          </button>
         </div>
+
         <div className={logincss.signupbtn}>
           <p>Don`t have an Account</p>
           <a href="/signup">signup here</a>
