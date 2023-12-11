@@ -30,7 +30,7 @@ const MainPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [dispatch]);
 
   const [total, setTotal] = useState(0);
 
