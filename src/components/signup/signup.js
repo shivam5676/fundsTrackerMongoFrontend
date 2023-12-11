@@ -17,7 +17,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loginLoader, setLoginLoader] = useState(false);
-  const [passIsValid, setPassIsValid] = useState(false);
+ 
   const navigate = useNavigate();
 
   const nameHandler = (event) => {
@@ -35,7 +35,7 @@ const SignUp = () => {
       event.target.value !== password &&
       event.target.value.length >= password.length
     ) {
-      setPassIsValid(true);
+   
     }
   };
 
@@ -76,7 +76,7 @@ const SignUp = () => {
     <div className={signupcss.signupMain}>
       <div className={signupcss.container}>
         <div className={signupcss.circle}>
-          <div>+</div>
+          <div></div>
         </div>
         <div className={signupcss.title}>
           <div className={signupcss.titleText}>

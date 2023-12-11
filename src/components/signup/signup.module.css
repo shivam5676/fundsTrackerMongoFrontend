@@ -28,14 +28,15 @@ width:100vw;
  
 }
 .circle>div{
-  height:50px;
-  width:50px;
-  background-image: url(/public/signupIcon.png);
+  height:60px;
+  width:60px;
+  background-image: url(/public/ftlogin.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50px ;
   background-color: antiquewhite;
+  background-size: 100px;
 }
 .title {
   display: flex;

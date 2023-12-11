@@ -5,13 +5,13 @@ import logincss from "./login.module.css";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
 import { toast } from "react-toastify";
 import { Dna } from "react-loader-spinner";
 
 const Login = () => {
-  const domain = "https://20.197.42.90:8000";
+  const domain = "http://20.197.42.90:8000";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginLoader, setLoginLoader] = useState(false);

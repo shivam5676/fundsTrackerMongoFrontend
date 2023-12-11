@@ -6,32 +6,41 @@ import { loginSliceActions } from "../../store/AuthenticationSlice";
 import { useNavigate } from "react-router-dom";
 import { dataSliceActions } from "../../store/dataSlice";
 
+const SidePanel = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-const SidePanel = () => {const navigate=useNavigate()
-  const dispatch=useDispatch()
-  const logoutHandler=()=>{
-dispatch(loginSliceActions.LogOut())
-dispatch(dataSliceActions.reset())
+  const logoutHandler = () => {
+    dispatch(loginSliceActions.LogOut());
+    dispatch(dataSliceActions.reset());
 
-localStorage.removeItem("isLogged")
-localStorage.removeItem("token")
-  }
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("token");
+  };
+
   return (
     <div className={sidecss.sideContainer}>
       <div className={sidecss.sideColumn}>
-        <AiFillHome className={sidecss.icon}></AiFillHome>
+        <AiFillHome className={sidecss.icon} />
         <div className={sidecss.title}>Home</div>
       </div>
       <div className={sidecss.sideColumn}>
-        <AiTwotoneSetting className={sidecss.icon}></AiTwotoneSetting>
-        <div className={sidecss.title} onClick={()=>{
-          navigate("/forgotPassword")}}>Setting</div>
+        <AiTwotoneSetting className={sidecss.icon} />
+        <div
+          className={sidecss.title}
+          onClick={() => {
+            navigate("/forgotPassword");
+          }}
+        >
+          Setting
+        </div>
       </div>
       <div className={sidecss.sideColumn} onClick={logoutHandler}>
-        <RiLogoutBoxRFill className={sidecss.icon}></RiLogoutBoxRFill>
+        <RiLogoutBoxRFill className={sidecss.icon} />
         <div className={sidecss.title}>LogOut</div>
       </div>
     </div>
   );
 };
+
 export default SidePanel;

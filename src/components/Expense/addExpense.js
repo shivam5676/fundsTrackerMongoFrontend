@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import addcss from "./addExpense.module.css";
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
 import { toast } from "react-toastify";
 
@@ -13,8 +13,8 @@ const AddExpense = (props) => {
   const descriptionRef = useRef("");
   const dispatch = useDispatch();
   
-  const data = useSelector((state) => state.data.allData);
-  console.log(data);
+ 
+ 
 
   const expenseDataHandler = async (event) => {
     event.preventDefault();

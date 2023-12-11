@@ -28,7 +28,7 @@ function App() {
       dispatch(loginSliceActions.premium())
     }
     
-  }, []);
+  }, [dispatch]);
 
  
   return (

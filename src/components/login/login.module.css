@@ -28,14 +28,16 @@
   justify-content: center;
 }
 .circle>div{
-  height:50px;
-  width:50px;
-  background-image: url(/public/signupIcon.png);
+  height:60px;
+  width:60px;
+  background-image: url(/public/ftlogin.png);
+  
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50px ;
   background-color: antiquewhite;
+  background-size: 120px;
 }
 .title {
   display: flex;
@@ -100,6 +102,7 @@
   display: flex;
   justify-content: flex-end;
   margin: -2px 10px 5px 0px;
+  color:blueviolet
 }
 .button {
   display: flex;

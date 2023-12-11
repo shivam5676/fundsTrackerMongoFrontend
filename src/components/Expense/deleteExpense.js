@@ -9,7 +9,7 @@ const DeleteExpense = (props) => {
   const dispatch = useDispatch();
   const deleteItemHandler = async (id) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${domain}/user/deleteexpense`,
         { id: id },
         { headers: { Authorization: localStorage.getItem("token") } }

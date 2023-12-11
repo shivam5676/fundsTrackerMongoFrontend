@@ -12,7 +12,7 @@ const MainPage = (props) => {
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);
   const [name,setname]=useState("")
-let username=""
+
   useEffect(() => {
     axios
       .get(`${domain}/user/getexpense`, {
