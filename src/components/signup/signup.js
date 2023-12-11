@@ -50,11 +50,11 @@ const SignUp = () => {
     };
     try {
       const res =await axios.post(`${domain}/user/signup`, myobj);
-      setTimeout(() => {
+     
        toast.success(res.data.message);
        setLoginLoader(false);
       navigate("/");
-      }, 1500);
+      
     
     } catch (err) {
      
