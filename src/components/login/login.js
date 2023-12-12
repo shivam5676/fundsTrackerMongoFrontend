@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { Dna } from "react-loader-spinner";
 
 const Login = () => {
-  const domain = "http://20.197.42.90:8000";
+  const domain = "https://20.197.42.90:8000";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginLoader, setLoginLoader] = useState(false);
