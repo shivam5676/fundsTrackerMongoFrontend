@@ -3,9 +3,10 @@ import React from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
+import useDomain from "../customhook/useDomain";
 
 const DeleteExpense = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain();
   const dispatch = useDispatch();
   const deleteItemHandler = async (id) => {
     try {

@@ -1,9 +1,10 @@
 
+import useDomain from "../customhook/useDomain";
 import PreviousExpenseFile from "./previousGeneratedExpense";
 import axios from "axios";
 
 const DownloadExpense = () => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain()
  const downloadExpenseHandler=()=>{
     axios
     .get(`${domain}/premiumuser/downloadexpense}`, {

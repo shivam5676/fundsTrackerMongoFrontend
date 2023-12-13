@@ -4,9 +4,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
+import useDomain from "../customhook/useDomain";
 
 const MembershipActivate = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain()
   const dispatch = useDispatch();
   const membershipHandler = () => {
     axios

@@ -6,9 +6,10 @@ import DeleteExpense from "../Expense/deleteExpense";
 import allcss from "./allExpense.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import useDomain from "../customhook/useDomain";
 
 const AllExpense = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain()
   const userDate = new Date();
   const [filterDate, setFilterDate] = useState("Default");
   const [allData, setAllData] = useState([]);

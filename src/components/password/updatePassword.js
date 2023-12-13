@@ -4,9 +4,11 @@ import { GiCrossMark } from "react-icons/gi";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import useDomain from "../customhook/useDomain";
 const UpdatePassword = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const domain=useDomain();
   const navigate=useNavigate();
   const param = useParams();
   const uuid = param.uuid;
@@ -19,7 +21,7 @@ const UpdatePassword = () => {
       uuid: uuid,
     };
     axios
-      .post(`http://localhost:8000/user/password/resetpassword`, myobj)
+      .post(`${domain}/user/password/resetpassword`, myobj)
       .then((res) => {
         setMessage(res.data.message);
         if (res.data.status === "success") {

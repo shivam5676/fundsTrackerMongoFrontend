@@ -9,9 +9,10 @@ import { ImUserTie } from "react-icons/im";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import useDomain from "../customhook/useDomain";
 
 const SignUp = () => {
- const domain="http://20.197.42.90:8000"
+ const domain=useDomain()
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");

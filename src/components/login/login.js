@@ -9,9 +9,12 @@ import { useDispatch } from "react-redux";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
 import { toast } from "react-toastify";
 import { Dna } from "react-loader-spinner";
+import useDomain from "../customhook/useDomain";
 
 const Login = () => {
-  const domain = "https://20.197.42.90:8000";
+  const domain=useDomain()
+
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginLoader, setLoginLoader] = useState(false);

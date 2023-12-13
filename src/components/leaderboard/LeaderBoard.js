@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import leaderboardcss from "./leaderboard.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
+import useDomain from "../customhook/useDomain";
 
 const LeaderBoard = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain();
   const [item, setItem] = useState(false);
   const closeLeaderBoardHandler = () => {
     props.onCloseLeaderBoard();

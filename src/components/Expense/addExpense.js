@@ -5,9 +5,10 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useDispatch} from "react-redux";
 import { dataSliceActions } from "../../store/dataSlice";
 import { toast } from "react-toastify";
+import useDomain from "../customhook/useDomain";
 
 const AddExpense = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain();
   const amountRef = useRef("");
   const categoryRef = useRef("");
   const descriptionRef = useRef("");

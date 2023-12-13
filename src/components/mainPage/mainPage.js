@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { dataSliceActions } from "../../store/dataSlice";
 import MembershipActivate from "../membership/activateMembershipbtn";
+import useDomain from "../customhook/useDomain";
 
 const MainPage = (props) => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain()
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);
   const [name,setname]=useState("")

@@ -4,15 +4,17 @@ import { GiCrossMark } from "react-icons/gi";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDomain from "../customhook/useDomain";
 const ForgotPassword = () => {
   
   const[message,setMessage]=useState("")
+  const domain=useDomain();
   const navigate=useNavigate()
   const emailref = useRef("");
   const forgotPasswordHandler = () => {
     const emailValue = emailref.current.value;
     axios
-      .post("http://localhost:8000/user/password/forgot", {
+      .post(`${domain}/user/password/forgot`, {
         email: emailValue,
       })
       .then((res) => {
