@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
+import useDomain from "../customhook/useDomain";
 
 const PreviousExpenseFile = () => {
-  const domain="http://20.197.42.90:8000"
+  const domain=useDomain();
   useEffect(() => {
     console.log("previous running")
     axios

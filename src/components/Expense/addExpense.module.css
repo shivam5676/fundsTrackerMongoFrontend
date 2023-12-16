@@ -14,7 +14,7 @@
 .container {
   display: flex;box-shadow: 2px 4px 15px 1px ;
   flex-direction: column;
-  height: 50vh;
+ padding-bottom: 20px;
   flex-basis: 500px;
   align-items: center;
   background-color: white;

@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 height:80vh;
- 
+ /* padding-top:200px; */
   flex-basis: 700px;
   overflow-y:scroll;
   
@@ -149,4 +149,22 @@ height:80vh;
 .doubleCard {
   font-size: .9rem;
 }
+}
+@media (max-height:700px){
+  .container{
+     padding-top:8vh;
+  }
+ 
+}
+@media (max-height:575px){
+  .container{
+     padding-top:13vh;
+  }
+ 
+}
+@media (max-height:480px){
+  .container{
+     padding-top:17vh;
+  }
+ 
 }

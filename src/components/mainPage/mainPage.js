@@ -49,7 +49,9 @@ const MainPage = (props) => {
   const openLeaderBoardHandler = () => {
     props.onOpenLeaderBoard();
   };
-
+  const openDownloadPageHandler=()=>{
+    props.onOpenDownloadPage();
+  }
   return (
     <div className={maincss.main}>
       <div className={maincss.container}>
@@ -101,7 +103,7 @@ const MainPage = (props) => {
               LeaderBoard
             </div>
           )}
-          <div className={maincss.doubleCard}>Download</div>
+          <div className={maincss.doubleCard} onClick={openDownloadPageHandler}>Download</div>
         </div>
       </div>
     </div>
