@@ -11,12 +11,25 @@ const DownloadExpense = (props) => {
   const categoryRef = useRef("");
   const domain = useDomain();
   const downloadExpenseHandler = () => {
+    const toDateValue = toDateRef.current.value;
+    const fromDateValue = fromDateRef.current.value;
     axios
-      .get(`${domain}/premiumuser/downloadexpense}`, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
+      .get(
+        `${domain}/premiumUser/downloadexpense?toDate=${toDateValue}&fromDate=${fromDateValue}`,
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      )
       .then((res) => {
         console.log(res.data.file); //we have to create a seperate download btn for premium user for downloading this file
+
+        const fileUrl = res.data.file;
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.download = "fundsTracker-Expense Report";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       })
       .catch((err) => {
         console.log(err);
@@ -37,25 +50,34 @@ const DownloadExpense = (props) => {
         <div className={downloadcss.downloadPage}>
           <div className={downloadcss.dateContainer}>
             <div className={downloadcss.toDate}>
-             <div className={downloadcss.inputName}>To</div>
-              <input type="date"></input>
+              <div className={downloadcss.inputName}>To</div>
+              <input type="date" ref={toDateRef}></input>
             </div>
             <div className={downloadcss.fromDate}>
-            <div className={downloadcss.inputName}>From</div>
-              <input type="date"></input>
+              <div className={downloadcss.inputName}>From</div>
+              <input type="date" ref={fromDateRef}></input>
             </div>
           </div>
-          <div className={downloadcss.generateReport}>DownloadReport</div>
+          <div
+            className={downloadcss.generateReport}
+            onClick={downloadExpenseHandler}
+          >
+            DownloadReport
+          </div>
         </div>
-        <div className={downloadcss.previousReport}>previous Download Report</div>
-        <div className={downloadcss.previousReportContainer}></div>
+        <div className={downloadcss.previousReport}>
+          previous Download Report
+        </div>
+        <div className={downloadcss.previousReportContainer}>
+          <PreviousExpenseFile></PreviousExpenseFile>
+        </div>
       </div>
     </div>
 
     // <div >
     //  <button onClick={downloadExpenseHandler}>download expense</button>
     //  <div>
-    //    <PreviousExpenseFile></PreviousExpenseFile>
+    //
     //  </div>
     // </div>
   );

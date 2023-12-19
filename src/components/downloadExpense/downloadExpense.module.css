@@ -21,6 +21,7 @@
   background-color: white;
   overflow:hidden;
   /* margin:10px */
+  margin-bottom: 20px;
 }
 .dateContainer{
     display: flex;
@@ -77,6 +78,7 @@ outline: none;
     height: 30px;
     border: 2px solid ;
     margin-top: 15px;
+
 }
 .previousReport{
     display: flex;
