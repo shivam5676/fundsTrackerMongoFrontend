@@ -19,7 +19,7 @@
   flex-basis: 500px;
   align-items: center;
   background-color: white;
-  overflow:hidden;
+  overflow-x:hidden;
   /* margin:10px */
   margin-bottom: 20px;
 }
@@ -74,7 +74,7 @@ outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
-   
+   background-color: yellow;
     height: 30px;
     border: 2px solid ;
     margin-top: 15px;
@@ -91,9 +91,11 @@ outline: none;
 }
 .previousReportContainer{
     display: flex;
-    justify-content: column;
+    
+    justify-content: center;
     border: 2px solid black;
-    width:90%;
+    /* width:90%; */
     flex:1;
     margin-bottom:20px;
+    overflow-y: scroll;
 }

@@ -3,16 +3,38 @@ import PreviousExpenseFile from "./previousGeneratedExpense";
 import axios from "axios";
 import downloadcss from "./downloadExpense.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { useRef } from "react";
-import { FaCalendar, FaCalendarDay } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
+// import { FaCalendar, FaCalendarDay } from "react-icons/fa";
 const DownloadExpense = (props) => {
   const toDateRef = useRef("");
   const fromDateRef = useRef("");
   const categoryRef = useRef("");
   const domain = useDomain();
+  const [dateValidator,setDateValidator]=useState(false);
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    // Add leading zero if month or day is a single digit
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+
+    return `${year}-${month}-${day}`;
+  };
   const downloadExpenseHandler = () => {
     const toDateValue = toDateRef.current.value;
     const fromDateValue = fromDateRef.current.value;
+    if(fromDateValue<=toDateValue){
+      setDateValidator(true)
+      console.log("execute")
+    }
+    if(!dateValidator){
+toast.error("starting date can not be greater than end date")
+return;
+    }
     axios
       .get(
         `${domain}/premiumUser/downloadexpense?toDate=${toDateValue}&fromDate=${fromDateValue}`,
@@ -50,12 +72,12 @@ const DownloadExpense = (props) => {
         <div className={downloadcss.downloadPage}>
           <div className={downloadcss.dateContainer}>
             <div className={downloadcss.toDate}>
-              <div className={downloadcss.inputName}>To</div>
-              <input type="date" ref={toDateRef}></input>
+              <div className={downloadcss.inputName}>from</div>
+              <input type="date" ref={fromDateRef} defaultValue={getCurrentDate()}></input>
             </div>
             <div className={downloadcss.fromDate}>
-              <div className={downloadcss.inputName}>From</div>
-              <input type="date" ref={fromDateRef}></input>
+              <div className={downloadcss.inputName}>To</div>
+              <input type="date" ref={toDateRef} defaultValue={getCurrentDate()}></input>
             </div>
           </div>
           <div

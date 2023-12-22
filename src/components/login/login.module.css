@@ -131,7 +131,13 @@
   display: flex;
   justify-content: center;
   margin: 0px;
-  color:antiquewhite
+  color:antiquewhite;
+  width:100px;
+  margin-left: 33%;
+ 
+}
+.signupbtn>a:hover{
+  cursor:pointer
 }
 .icon {
   color: rgb(255, 255, 254);

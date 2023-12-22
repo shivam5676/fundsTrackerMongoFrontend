@@ -121,6 +121,11 @@ width:100vw;
   color: rgb(113, 160, 18);
   text-decoration: none;
   font-weight: bold;
+  width:100px;
+  margin-left: 33%;;
+}
+.loginbtn>a>button:hover{
+  cursor:pointer
 }
 .loginbtn > a > button {
   width: 100px;
