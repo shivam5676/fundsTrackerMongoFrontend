@@ -11,7 +11,7 @@ const DownloadExpense = (props) => {
   const fromDateRef = useRef("");
   const categoryRef = useRef("");
   const domain = useDomain();
-  const [dateValidator,setDateValidator]=useState(false);
+  
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -27,14 +27,7 @@ const DownloadExpense = (props) => {
   const downloadExpenseHandler = () => {
     const toDateValue = toDateRef.current.value;
     const fromDateValue = fromDateRef.current.value;
-    if(fromDateValue<=toDateValue){
-      setDateValidator(true)
-      console.log("execute")
-    }
-    if(!dateValidator){
-toast.error("starting date can not be greater than end date")
-return;
-    }
+   
     axios
       .get(
         `${domain}/premiumUser/downloadexpense?toDate=${toDateValue}&fromDate=${fromDateValue}`,
