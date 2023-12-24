@@ -21,8 +21,9 @@ const MembershipActivate = (props) => {
           order_id: response.data.order.id,
           handler: async function (response) {
             try {
+              console.log("posting started")
               await axios.post(
-                "http://localhost:8000/premiumuser/updateMembership",
+                `${domain}/premiumuser/updateMembership`,
                 {
                   order_id: options.order_id,
                   payment_id: response.razorpay_payment_id,
@@ -35,7 +36,8 @@ const MembershipActivate = (props) => {
               toast.success("payment done, u are a pro member");
               dispatch(loginSliceActions.premium());
             } catch (err) {
-              toast.error(err);
+              console.log(err)
+              // toast.error(err);
             }
           },
         };
@@ -44,12 +46,12 @@ const MembershipActivate = (props) => {
         rzp1.open();
 
         rzp1.on("payment.failed", function (response) {
-          ToastContainer.success(response.error.reason);
+          console.log(response)
         });
       })
       .catch((err) => {
-        console.log("eror found",err)
-        toast.error(err);
+        console.log("erorr found",err)
+        toast.error("err");
       });
   };
   //we have to store ispremium value in context or redux once user successfully logged in or we can do these things by updating jwt token with new object values for ispremium true and we we will fetch all jwt username,premium id from header

@@ -6,8 +6,8 @@
   padding-top: 5px;
   width: 60px;
   transition: width 0.3s;
-  /* margin: 5px; */
-  height:99%;
+  
+  /* height:100vh; */
 }
 .sideColumn {
   display: flex;

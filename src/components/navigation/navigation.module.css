@@ -1,8 +1,8 @@
 .navigation{
     display: flex;
     width:100vw;
-    background-color: rgb(50, 166, 187);
-    height:200px;
+    background-color: #32a6bb;
+    height:20vh;
   }
   .sidebtn{
     display: flex;
