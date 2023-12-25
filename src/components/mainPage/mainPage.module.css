@@ -149,6 +149,8 @@ height:80vh;
   background-color: dodgerblue;
   text-align: center;
   max-width:100px;
+  overflow: hidden;
+  
 }
 .container::-webkit-scrollbar{
   display:none;

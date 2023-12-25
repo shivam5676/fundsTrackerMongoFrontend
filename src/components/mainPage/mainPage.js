@@ -58,7 +58,7 @@ const MainPage = (props) => {
         <div className={maincss.parent}>
           <div className={maincss.profileCard}>
             <div className={maincss.profile}>
-              <p className={maincss.profileName}> {name}</p>
+              <p className={maincss.profileName}> {name.slice(0, 10)}</p>
               {premiumState ? (
                 <p className={maincss.prouser}>premium user</p>
               ) : (
