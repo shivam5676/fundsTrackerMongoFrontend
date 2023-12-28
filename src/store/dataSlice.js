@@ -10,9 +10,9 @@ const dataSlice = createSlice({
       state.allData.push(action.payload);
     },
     deleteExpense(state, action) {
-      const updatedArray = state.allData.filter(
-        (current) => current.id !== action.payload
-      );
+      const updatedArray = state.allData.filter((current) => {
+        return current._id !== action.payload;
+      });
       state.allData = updatedArray;
     },
     leaderBoard(state, action) {

@@ -29,11 +29,12 @@ const AddExpense = (props) => {
         headers: { Authorization: localStorage.getItem("token") },
       });
 
-      dispatch(dataSliceActions.addExpense(response.data.createdItem));
+      dispatch(dataSliceActions.addExpense(response.data.createdItem[0]));
       setIsLoader(false);
       toast.success("expense added successfully");
       // closeAddExpense();
     } catch (err) {
+      console.log(err)
       setIsLoader(false);
       toast.success(err);
     }

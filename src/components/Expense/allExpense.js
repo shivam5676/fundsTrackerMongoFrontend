@@ -63,7 +63,7 @@ const AllExpense = (props) => {
   
         const dataArray = response.data.result.map((currentIndex) => {
           const currentIndexDate = new Date(
-            currentIndex.updatedAt
+            currentIndex.createdAt
           ).toLocaleString("en-GB", {
             year: "numeric",
             month: "2-digit",
@@ -71,7 +71,7 @@ const AllExpense = (props) => {
           });
           if (currentIndexDate.includes(filterDate) || filterDate === "Default") {
             return (
-              <tr key={currentIndex.id} className={allcss.tablerow}>
+              <tr key={currentIndex._id} className={allcss.tablerow}>
                 <td className={allcss.tablerowDate}>{currentIndexDate}</td>
                 <td className={allcss.tablerowAmount}>{currentIndex.amount}</td>
                 <td className={allcss.tablerowCategory}>
@@ -82,7 +82,7 @@ const AllExpense = (props) => {
                   {currentIndex.description}
                 </td>
                 <td>
-                  <DeleteExpense deleteId={currentIndex.id}></DeleteExpense>
+                  <DeleteExpense deleteId={currentIndex._id}></DeleteExpense>
                 </td>
               </tr>
             );
