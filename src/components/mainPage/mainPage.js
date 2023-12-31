@@ -8,7 +8,9 @@ import { dataSliceActions } from "../../store/dataSlice";
 import MembershipActivate from "../membership/activateMembershipbtn";
 import useDomain from "../customhook/useDomain";
 
+
 const MainPage = (props) => {
+  
   const domain=useDomain()
   const dispatch = useDispatch();
   const premiumState = useSelector((state) => state.login.isPremium);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { loginSliceActions } from "../../store/AuthenticationSlice";
 import useDomain from "../customhook/useDomain";
 
@@ -24,12 +24,13 @@ const MembershipActivate = (props) => {
       document.body.appendChild(script);
     });
   };
+  //code starts from here
 
   const membershipHandler = async () => {
     const res = await initializeRazorpay();
 
     if (!res) {
-      alert("Razorpay SDK Failed to load");
+      toast("Razorpay SDK Failed to load");
       return;
     }
 
@@ -37,35 +38,35 @@ const MembershipActivate = (props) => {
     const data = await axios.get(`${domain}/premiumuser/activateMembership`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
-    console.log(data.data.key_id);
+
     var options = {
       key: data.data.key_id, // Enter the Key ID generated from the Dashboard
       name: "fundsTracker (By-shivam singh)",
 
       order_id: data.data.order.id,
       description: "Thanks for taking pro membership",
-      // image: "https://manuarora.in/logo.png",
+
       handler: async function (response) {
         // Validate payment at server - using webhooks is a better idea.
         try {
-                      console.log("posting started")
-                      await axios.post(
-                        `${domain}/premiumuser/updateMembership`,
-                        {
-                          order_id: options.order_id,
-                          payment_id: response.razorpay_payment_id,
-                        },
-                        {
-                          headers: { Authorization: localStorage.getItem("token") },
-                        }
-                      );
-                      localStorage.setItem("isPremium", true); //later we have to replace this localstorage to context direct fetch method when user reload the page then it should be saved in context
-                      toast.success("payment done, u are a pro member");
-                      dispatch(loginSliceActions.premium());
-                    } catch (err) {
-                      console.log(err)
-                      // toast.error(err);
-                    }
+          console.log("posting started");
+          await axios.post(
+            `${domain}/premiumuser/updateMembership`,
+            {
+              order_id: options.order_id,
+              payment_id: response.razorpay_payment_id,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          );
+          localStorage.setItem("isPremium", true); //later we have to replace this localstorage to context direct fetch method when user reload the page then it should be saved in context
+          toast.success("payment done, u are a pro member");
+          dispatch(loginSliceActions.premium());
+        } catch (err) {
+          console.log(err);
+          // toast.error(err);
+        }
       },
       prefill: {
         name: "shivam singh",
@@ -78,52 +79,6 @@ const MembershipActivate = (props) => {
     paymentObject.open();
   };
 
-  // const membershipHandler = () => {
-  //   axios
-  //     .get(`${domain}/premiumuser/activateMembership`, {
-  //       headers: { Authorization: localStorage.getItem("token") },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       let options = {
-  //         key_id: response.data.key_id,
-  //         order_id: response.data.order.id,
-  //         handler: async function (response) {
-  //           try {
-  //             console.log("posting started")
-  //             await axios.post(
-  //               `${domain}/premiumuser/updateMembership`,
-  //               {
-  //                 order_id: options.order_id,
-  //                 payment_id: response.razorpay_payment_id,
-  //               },
-  //               {
-  //                 headers: { Authorization: localStorage.getItem("token") },
-  //               }
-  //             );
-  //             localStorage.setItem("isPremium", true); //later we have to replace this localstorage to context direct fetch method when user reload the page then it should be saved in context
-  //             toast.success("payment done, u are a pro member");
-  //             dispatch(loginSliceActions.premium());
-  //           } catch (err) {
-  //             console.log(err)
-  //             // toast.error(err);
-  //           }
-  //         },
-  //       };
-
-  //       const rzp1 = new window.Razorpay(options);
-  //       rzp1.open();
-
-  //       rzp1.on("payment.failed", function (response) {
-  //         console.log(response)
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log("erorr found",err)
-  //       toast.error("err");
-  //     });
-  // };
-  //we have to store ispremium value in context or redux once user successfully logged in or we can do these things by updating jwt token with new object values for ispremium true and we we will fetch all jwt username,premium id from header
   return (
     <div
       onClick={membershipHandler}
